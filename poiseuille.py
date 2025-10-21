@@ -3,7 +3,7 @@
 
 # === Configurazione ===
 from mpi4py import MPI
-from petsc4py import PETSc  # noqa: F401 (può servire per tuning PETSc)
+from petsc4py import PETSc  
 import numpy as np
 import ufl, os
 
@@ -13,14 +13,14 @@ from dolfinx.fem.petsc import LinearProblem
 from basix.ufl import mixed_element
 
 # === Parametri simulazione ===
-MESH_FILE = "script _cilindro.msh"  # attenzione allo spazio nel nome
-P_IN, P_OUT = 8.0, 0.0              # pressioni (trazioni) ai capi
-EPS_P = 1e-10                       # stabilizzazione pressione
+MESH_FILE = "script _cilindro.msh"  
+P_IN, P_OUT = 8.0, 0.0              
+EPS_P = 1e-10                      
 
 comm = MPI.COMM_WORLD
 rank = comm.rank
 
-# === Lettura mesh (stile "simulazione_termofluidodinamica_due") ===========
+# === Lettura mesh  ===========
 if rank == 0 and not os.path.exists(MESH_FILE):
     raise FileNotFoundError(f"File non trovato: {MESH_FILE}")
 comm.barrier()
@@ -135,3 +135,4 @@ with XDMFFile(mesh.comm, out_name, "w") as xdmf:
 
 if rank == 0:
     print(f"✅ Output scritto: {out_name}")
+
