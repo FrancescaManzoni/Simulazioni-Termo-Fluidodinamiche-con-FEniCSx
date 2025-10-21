@@ -13,7 +13,7 @@ from ufl import TrialFunction, TestFunction, dx, grad, inner
 # -----------------------
 MESH_FILE = "mesh_trapezio.msh"
 
-# Manteniamo gli stessi ID che usavi prima, ma li creeremo noi per coordinate
+
 TAG_FREDDO = 5   # lato sinistro (x = xmin)
 TAG_CALDO  = 7   # lato destro  (x = xmax)
 
@@ -52,7 +52,7 @@ def on_right(p):  return np.isclose(p[0], xmax, atol=tol)   # caldo
 left_facets  = dmesh.locate_entities_boundary(mesh, fdim, on_left)
 right_facets = dmesh.locate_entities_boundary(mesh, fdim, on_right)
 
-# Se vuoi, potresti creare anche top/bottom, ma qui non servono per le BC
+
 
 # Crea Meshtags con i due insiemi (ordinati come richiesto da dolfinx)
 facet_indices = np.concatenate([left_facets, right_facets]).astype(np.int32)
